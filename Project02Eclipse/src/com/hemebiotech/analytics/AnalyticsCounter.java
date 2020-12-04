@@ -3,13 +3,14 @@ package com.hemebiotech.analytics;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AnalyticsCounter {
 
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IOException {
 
 
 		List<Symptom> listSymptomOccurrence = new ArrayList<>();
@@ -60,14 +61,14 @@ public class AnalyticsCounter {
 			}
 		}
 
+		FileWriter writer = new FileWriter("C:\\dev\\ProjetOC\\ProjetOC2\\Project02Eclipse\\src\\resultat.txt");
+
 		for (Symptom readSymptom : listSymptomOccurrence) {
-
-
-			FileWriter writer = new FileWriter("C:\\dev\\ProjetOC\\ProjetOC2\\Project02Eclipse\\src\\resultat.txt");
-
-			writer.append(readSymptom.getNomSymptom()).append("[").append(String.valueOf(readSymptom.getRecurrence())).append("]");
-
+			if (readSymptom.getNomSymptom()!=null || readSymptom.getRecurrence()!= 0)
+			writer.write(readSymptom.getNomSymptom() + "[" + readSymptom.getRecurrence() + "]" + System.lineSeparator());
 		}
 
+
+		writer.close();
 	}
 }
