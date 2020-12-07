@@ -68,7 +68,6 @@ public class AnalyticsCounter {
 			writer.write(readSymptom.getNomSymptom() + "[" + readSymptom.getRecurrence() + "]" + System.lineSeparator());
 		}
 
-
 		writer.close();
 	}
 }
