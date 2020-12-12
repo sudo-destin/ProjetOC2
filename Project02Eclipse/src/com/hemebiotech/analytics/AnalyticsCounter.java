@@ -2,72 +2,43 @@ package com.hemebiotech.analytics;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class AnalyticsCounter {
-
-	
-	public static void main(String[] args) throws IOException {
+public class AnalyticsCounter implements IAnalyticsCounter {
 
 
-		List<Symptom> listSymptomOccurrence = new ArrayList<>();
-
-		BufferedReader reader = new BufferedReader(new FileReader("C:\\dev\\ProjetOC\\ProjetOC2\\Project02Eclipse\\src\\symptoms.txt"));
-
-
-		List<String> distinctSymptom = new ArrayList<>();
-
-		String line = reader.readLine();
-
-		distinctSymptom.add(line);
-
-		while (line != null) {
+	@Override
+	public SortedMap<String, Integer> GetMapSymptom() throws IOException {
 
 
-			line = reader.readLine();
+		SortedMap<String, Integer> listSymptomOccurrence = new TreeMap<>();
 
-			if (!distinctSymptom.contains(line)) {
-				distinctSymptom.add(line);
-			}
-		}
+
+		List<String> distinctSymptom = new ReadSymptomDataFromFile("C:\\dev\\ProjetOC\\ProjetOC2\\Project02Eclipse\\src\\symptoms.txt").GetSymptoms();
+
+
 		for (String symptom : distinctSymptom) {    //boucle for{} qui permet de comptabiliser les occurences
 
-			reader = new BufferedReader(new FileReader("C:\\dev\\ProjetOC\\ProjetOC2\\Project02Eclipse\\src\\symptoms.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("C:\\dev\\ProjetOC\\ProjetOC2\\Project02Eclipse\\src\\symptoms.txt"));
 
-			line = reader.readLine();
+			String line = reader.readLine();
 
 			int counter = 0;
-
-			Symptom symptomAndOccurence = new Symptom(symptom, counter);
 
 			while (line != null) {
 
 				if (line.equals(symptom)) {
 					counter++;
 				}
-				symptomAndOccurence.setRecurrence(counter);
-
-				if (!listSymptomOccurrence.contains(symptomAndOccurence)) { 	//Vérifie que la list ne contient pas le symptom
-
-					symptomAndOccurence = new Symptom(symptom, counter);
-
-					listSymptomOccurrence.add(symptomAndOccurence);
-
-				}
+				listSymptomOccurrence.put(symptom,counter);
+				
 				line = reader.readLine();
 			}
 		}
 
-		FileWriter writer = new FileWriter("C:\\dev\\ProjetOC\\ProjetOC2\\Project02Eclipse\\src\\resultat.txt");
+		return listSymptomOccurrence;
 
-		for (Symptom readSymptom : listSymptomOccurrence) {
-			if (readSymptom.getNomSymptom()!=null || readSymptom.getRecurrence()!= 0)
-			writer.write(readSymptom.getNomSymptom() + "[" + readSymptom.getRecurrence() + "]" + System.lineSeparator());
-		}
-
-		writer.close();
 	}
+
 }
