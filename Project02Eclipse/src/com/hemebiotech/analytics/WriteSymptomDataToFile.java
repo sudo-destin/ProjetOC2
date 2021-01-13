@@ -2,20 +2,18 @@ package com.hemebiotech.analytics;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
-class WriteSymptomDataFromFile extends AnalyticsCounter implements ISymptomWriter {
-
+class WriteSymptomDataFromFile implements ISymptomWriter {
 
     @Override
-    public void WriteSymptom () throws IOException {
-
-        GetMapSymptom();
+    public void writeSymptom(Map<String, Integer> mapSymptom, String filepath ) throws IOException {
 
 
-        FileWriter writer = new FileWriter("C:\\dev\\ProjetOC\\ProjetOC2\\Project02Eclipse\\src\\resultat.txt");
+        FileWriter writer = new FileWriter(filepath);
 
-        for (String symptom : GetMapSymptom().keySet()) {
-            writer.write(symptom + "[" + GetMapSymptom().get(symptom) + "]" + System.lineSeparator());
+        for (String symptom : mapSymptom.keySet()) {
+            writer.write(symptom + "[" + mapSymptom.get(symptom) + "]" + System.lineSeparator());
         }
 
         writer.close();

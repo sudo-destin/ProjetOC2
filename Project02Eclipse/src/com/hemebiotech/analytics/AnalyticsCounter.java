@@ -9,18 +9,15 @@ public class AnalyticsCounter implements IAnalyticsCounter {
 
 
 	@Override
-	public SortedMap<String, Integer> GetMapSymptom() throws IOException {
+	public SortedMap<String, Integer> getMapSymptom(List<String> distinctSymptom, String filepath) throws IOException {
 
 
 		SortedMap<String, Integer> listSymptomOccurrence = new TreeMap<>();
 
 
-		List<String> distinctSymptom = new ReadSymptomDataFromFile("C:\\dev\\ProjetOC\\ProjetOC2\\Project02Eclipse\\src\\symptoms.txt").GetSymptoms();
-
-
 		for (String symptom : distinctSymptom) {    //boucle for{} qui permet de comptabiliser les occurences
 
-			BufferedReader reader = new BufferedReader(new FileReader("C:\\dev\\ProjetOC\\ProjetOC2\\Project02Eclipse\\src\\symptoms.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader(filepath));
 
 			String line = reader.readLine();
 
@@ -32,7 +29,7 @@ public class AnalyticsCounter implements IAnalyticsCounter {
 					counter++;
 				}
 				listSymptomOccurrence.put(symptom,counter);
-				
+
 				line = reader.readLine();
 			}
 		}
