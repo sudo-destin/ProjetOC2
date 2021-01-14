@@ -15,7 +15,7 @@ public class AnalyticsCounter implements IAnalyticsCounter {
 		SortedMap<String, Integer> listSymptomOccurrence = new TreeMap<>();
 
 
-		for (String symptom : distinctSymptom) {    //boucle for{} qui permet de comptabiliser les occurences
+		for (String symptom : distinctSymptom) {
 
 			BufferedReader reader = new BufferedReader(new FileReader(filepath));
 
