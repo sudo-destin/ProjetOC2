@@ -10,21 +10,21 @@ public class Main {
 
     public static void main(String[]args) throws IOException {
 
-        String filepath = new File("Project02Eclipse/src/symptoms.txt").getAbsolutePath();    //Path to the file containing the symptoms to be treated
+        String filepath = new File("Project02Eclipse/src/symptoms.txt").getAbsolutePath();
 
         ISymptomReader reader = new ReadSymptomDataFromFile(filepath);
 
-        List<String> distinctSymptom = reader.getSymptoms();    //Retrieves the list of symptoms
+        List<String> distinctSymptom = reader.getSymptoms();
 
         IAnalyticsCounter counter = new AnalyticsCounter();
 
-        Map<String, Integer> mapSymptom = counter.getMapSymptom(distinctSymptom,filepath);      //Counts the number of occurrence of symptoms
+        Map<String, Integer> mapSymptom = counter.getMapSymptom(distinctSymptom,filepath);
 
-        String filepathWriter = new File("Project02Eclipse/src/resultat.txt").getAbsolutePath();        //Path to the result file
+        String filepathWriter = new File("Project02Eclipse/src/resultat.txt").getAbsolutePath();
 
         ISymptomWriter writer = new WriteSymptomDataFromFile();
 
-        writer.writeSymptom(mapSymptom,filepathWriter);     //Write the results obtained in the file
+        writer.writeSymptom(mapSymptom,filepathWriter);
     }
 }
 
